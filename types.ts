@@ -27,6 +27,7 @@ export interface PathRecommendation {
   pathEmoji: string;
   description: string;
   whyThisPath: string;
+  pathUrl: string;
 }
 export interface QuizResults {
   totalScore: number;

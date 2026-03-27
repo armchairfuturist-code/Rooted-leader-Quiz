@@ -17,68 +17,68 @@ const generatePDF = (results: QuizResults) => {
   const { jsPDF } = (window as any).jspdf;
   const doc = new jsPDF();
   
-  // Header
-  doc.setFillColor(107, 158, 122); // sage
+  doc.setFillColor(107, 158, 122);
   doc.rect(0, 0, 210, 40, 'F');
   doc.setTextColor(255, 255, 255);
   doc.setFontSize(22);
-  doc.text('Your Nervous System Pattern', 105, 20, { align: 'center' });
-  doc.setFontSize(12);
-  doc.text('The Integrative Practitioner | Shannon Myers, MS, SEP', 105, 30, { align: 'center' });
+  doc.text('Your Nervous System Pattern', 105, 18, { align: 'center' });
+  doc.setFontSize(11);
+  doc.text('The Integrative Practitioner | Shannon Myers, MS, SEP', 105, 27, { align: 'center' });
+  doc.setFontSize(10);
+  doc.textWithLink(WEBSITE_URL, { url: WEBSITE_URL, x: 105, y: 35 }, { align: 'center' });
   
-  // Pattern Result
   doc.setTextColor(40, 40, 40);
-  doc.setFontSize(18);
+  doc.setFontSize(20);
   doc.text(results.dominantPattern, 105, 55, { align: 'center' });
   doc.setFontSize(14);
-  doc.text(`Regulation Score: ${results.totalScore}/88`, 105, 65, { align: 'center' });
+  doc.text('Regulation Score: ' + results.totalScore + '/88', 105, 65, { align: 'center' });
   
-  // Description
   doc.setFontSize(11);
-  const splitDescription = doc.splitTextToSize(results.patternDescription, 170);
-  doc.text(splitDescription, 20, 80);
+  const splitDesc = doc.splitTextToSize(results.patternDescription, 170);
+  doc.text(splitDesc, 20, 78);
   
-  // Recommended Path
-  doc.setFillColor(250, 248, 243); // cream
-  doc.roundedRect(15, 100, 180, 50, 3, 3, 'F');
-  doc.setTextColor(193, 127, 93); // terracotta
-  doc.setFontSize(14);
-  doc.text('Recommended Path', 105, 110, { align: 'center' });
+  doc.setFillColor(250, 248, 243);
+  doc.roundedRect(15, 95, 180, 55, 3, 3, 'F');
+  doc.setDrawColor(107, 158, 122);
+  doc.setLineWidth(1);
+  doc.roundedRect(15, 95, 180, 55, 3, 3, 'S');
+  
+  doc.setTextColor(107, 158, 122);
+  doc.setFontSize(11);
+  doc.text('RECOMMENDED PATH', 105, 105, { align: 'center' });
+  
   doc.setTextColor(40, 40, 40);
-  doc.setFontSize(12);
-  doc.text(`${results.recommendedPath.pathEmoji} ${results.recommendedPath.pathTitle}`, 105, 120, { align: 'center' });
-  doc.setFontSize(10);
-  doc.setTextColor(100, 100, 100);
-  doc.text(results.recommendedPath.description, 105, 130, { align: 'center' });
+  doc.setFontSize(16);
+  doc.text(results.recommendedPath.pathEmoji + ' ' + results.recommendedPath.pathTitle, 105, 115, { align: 'center' });
   
-  // Next Steps
+  doc.setTextColor(100, 100, 100);
+  doc.setFontSize(10);
+  doc.text(results.recommendedPath.description, 105, 125, { align: 'center' });
+  
+  doc.setTextColor(0, 102, 204);
+  doc.textWithLink('View this path: ' + results.recommendedPath.pathUrl, { url: results.recommendedPath.pathUrl, x: 105, y: 140 }, { align: 'center' });
+  
   doc.setTextColor(40, 40, 40);
   doc.setFontSize(12);
   doc.text('Next Steps:', 20, 165);
   doc.setFontSize(10);
   doc.text('1. Apply to work together:', 20, 175);
-  doc.setTextColor(0, 0, 238);
-  doc.text(INTAKE_URL, 60, 175);
+  doc.setTextColor(0, 102, 204);
+  doc.textWithLink(INTAKE_URL, { url: INTAKE_URL, x: 60, y: 175 });
   doc.setTextColor(40, 40, 40);
-  doc.text('2. Have questions? Email Shannon:', 20, 183);
-  doc.text(EMAIL_URL, 80, 183);
+  doc.text('2. Have questions?', 20, 183);
+  doc.setTextColor(0, 102, 204);
+  doc.textWithLink('Email Shannon', { url: EMAIL_URL, x: 55, y: 183 });
+  doc.setTextColor(40, 40, 40);
   doc.text('3. Get weekly insights:', 20, 191);
-  doc.setTextColor(0, 0, 238);
-  doc.text(SUBSTACK_URL, 60, 191);
+  doc.setTextColor(0, 102, 204);
+  doc.textWithLink('Subscribe to Newsletter', { url: SUBSTACK_URL, x: 65, y: 191 });
   
-  // Website Link
-  doc.setTextColor(40, 40, 40);
-  doc.setFontSize(12);
-  doc.text('Learn more about your path:', 20, 210);
-  doc.setTextColor(0, 0, 238);
-  doc.text(results.recommendedPath.pathUrl, 70, 210);
-  
-  // Footer
   doc.setFillColor(107, 158, 122);
   doc.rect(0, 280, 210, 17, 'F');
   doc.setTextColor(255, 255, 255);
   doc.setFontSize(9);
-  doc.text(`Complete assessment at: ${WEBSITE_URL}`, 105, 288, { align: 'center' });
+  doc.textWithLink(WEBSITE_URL, { url: WEBSITE_URL, x: 105, y: 288 }, { align: 'center' });
   doc.setFontSize(8);
   doc.text('This assessment is for educational purposes only and is not a substitute for professional mental health care.', 105, 294, { align: 'center' });
   
@@ -98,21 +98,21 @@ const ResultsPage: React.FC<ResultsPageProps> = ({ results }) => {
                 <div className="text-6xl mb-4">{patternIcon}</div>
                 <h1 className="text-2xl sm:text-3xl font-semibold text-terracotta mb-2">You Are: {dominantPattern}</h1>
                 <div className="inline-block bg-sage/30 text-text-dark font-medium py-1 px-4 rounded-full text-sm mb-6">Regulation Score: {totalScore}/88</div>
-                <p className="text-base text-text-light max-w-xl mx-auto mb-8">{patternDescription}</p>
+                <p className="text-base text-text-light max-w-xl mx-auto mb-6">{patternDescription}</p>
                 
-                <div className="my-8 p-6 bg-white/50 rounded-xl border-2 border-sage/30 text-left">
-                    <p className="text-xs font-bold text-sage uppercase tracking-wider mb-3 text-center">Based on Your Results, We Recommend</p>
-                    <div className="flex items-center justify-center gap-3 mb-3">
-                        <span className="text-4xl">{recommendedPath.pathEmoji}</span>
+                <div className="my-8 p-6 bg-white rounded-xl border-2 border-sage shadow-lg">
+                    <p className="text-xs font-bold text-sage uppercase tracking-wider mb-4 text-center">Based on Your Results, We Recommend</p>
+                    <div className="flex items-center justify-center gap-4 mb-4">
+                        <span className="text-5xl">{recommendedPath.pathEmoji}</span>
                         <div className="text-left">
-                            <p className="text-sm font-bold text-text-light">{recommendedPath.pathLabel}</p>
-                            <h3 className="text-xl font-semibold text-text-dark">{recommendedPath.pathTitle}</h3>
+                            <p className="text-sm font-bold text-sage">{recommendedPath.pathLabel}</p>
+                            <h3 className="text-2xl font-bold text-text-dark">{recommendedPath.pathTitle}</h3>
                         </div>
                     </div>
-                    <p className="text-sm text-text-light mb-3">{recommendedPath.description}</p>
-                    <p className="text-xs text-text-light italic border-l-2 border-sage pl-3 mb-4">{recommendedPath.whyThisPath}</p>
-                    <a href={recommendedPath.pathUrl} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-sage hover:text-sage-dark font-semibold text-sm">
-                        <LinkIcon />Learn More About This Path on the Website
+                    <p className="text-base text-text-light mb-4 max-w-lg mx-auto">{recommendedPath.description}</p>
+                    <p className="text-sm text-text-light/80 italic mb-5 border-l-4 border-sage pl-4 text-left max-w-lg mx-auto">{recommendedPath.whyThisPath}</p>
+                    <a href={recommendedPath.pathUrl} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 bg-sage hover:bg-sage-dark text-white py-3 px-6 rounded-full font-semibold transition-all">
+                        <LinkIcon />View This Path on the Website
                     </a>
                 </div>
                 
@@ -120,7 +120,7 @@ const ResultsPage: React.FC<ResultsPageProps> = ({ results }) => {
                     <a href={INTAKE_URL} target="_blank" rel="noopener noreferrer" className="block w-full bg-sage hover:bg-sage-dark text-white py-4 px-6 rounded-xl font-semibold text-center shadow-soft transition-all">Apply to Work Together</a>
                     <a href={EMAIL_URL} className="block w-full bg-white text-terracotta border-2 border-terracotta py-4 px-6 rounded-xl font-semibold text-center shadow-soft transition-all flex items-center justify-center gap-2"><EmailIcon />Have Questions? Email Shannon</a>
                     <button onClick={() => window.open(SUBSTACK_URL, "_blank")} className="block w-full bg-sage/20 text-text-dark py-4 px-6 rounded-xl font-semibold text-center shadow-soft transition-all flex items-center justify-center gap-2"><SubstackIcon />Get Weekly Insights (Free Newsletter)</button>
-                    <button onClick={() => generatePDF(results)} className="block w-full bg-terracotta/20 text-text-dark py-4 px-6 rounded-xl font-semibold text-center shadow-soft transition-all flex items-center justify-center gap-2"><DownloadIcon />Download Your Results (PDF)</button>
+                    <button onClick={() => generatePDF(results)} className="block w-full bg-terracotta text-white py-4 px-6 rounded-xl font-semibold text-center shadow-soft transition-all flex items-center justify-center gap-2"><DownloadIcon />Download Your Results (PDF)</button>
                 </div>
                 
                 <p className="text-xs text-text-light/70 mt-8">This assessment is for educational purposes only and is not a substitute for professional mental health care.</p>

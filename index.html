@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    
+    <title>Discover Your Nervous System Pattern | Free Inner Healer Assessment</title>
+    <meta name="description" content="3-minute science-based quiz reveals your unique nervous system pattern and personalized healing pathway. Based on polyvagal theory & somatic research.">
+    <meta name="keywords" content="nervous system quiz, trauma healing assessment, polyvagal assessment, somatic experiencing test, nervous system dysregulation">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Discover Your Inner Healer: Nervous System Quiz">
+    <meta property="og:description" content="Take this 3-minute journey to understand your nervous system patterns and unlock your healing pathway.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://example.com">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Discover Your Inner Healer Quiz">
+    <meta name="twitter:description" content="3-minute nervous system assessment based on latest neuroscience research">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              'primary-blue': '#A8DADC',
+              'secondary-blue': '#B8E6E8',
+              'cream': '#F8F6F3',
+              'sage': '#C7D8C6',
+              'text-dark': '#4A4A4A',
+              'text-light': '#6B6B6B',
+              'accent': '#457B9D',
+            },
+            fontFamily: {
+              sans: ['Inter', 'Helvetica Neue', 'sans-serif'],
+            },
+            borderRadius: {
+              '2xl': '16px',
+            },
+            boxShadow: {
+              'soft': '0 4px 20px rgba(0,0,0,0.08)',
+              'soft-hover': '0 6px 24px rgba(0,0,0,0.12)',
+              'answer-selected': '0 4px 12px rgba(168, 218, 220, 0.4)',
+            },
+            animation: {
+              'float': 'float 15s ease-in-out infinite',
+              'confetti': 'confetti-fall 5s ease-out forwards',
+              'gentle-pulse': 'gentle-pulse 7s ease-in-out infinite',
+              'gentle-sway': 'gentle-sway 9s ease-in-out infinite alternate',
+            },
+            keyframes: {
+              float: {
+                '0%, 100%': { transform: 'translateY(0px)' },
+                '50%': { transform: 'translateY(-20px)' },
+              },
+              'confetti-fall': {
+                '0%': { transform: 'translateY(-100%) scale(1)', opacity: '1' },
+                '100%': { transform: 'translateY(100vh) scale(0.5)', opacity: '0' },
+              },
+              'gentle-pulse': {
+                '0%, 100%': { opacity: '1', transform: 'scale(1)' },
+                '50%': { opacity: '0.97', transform: 'scale(1.005)' },
+              },
+              'gentle-sway': {
+                '0%': { transform: 'translateX(-1px) rotate(-0.2deg)' },
+                '100%': { transform: 'translateX(1px) rotate(0.2deg)' },
+              }
+            }
+          }
+        }
+      }
+    </script>
+    <style>
+      body {
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
+      .gradient-bg {
+        background: linear-gradient(45deg, #F8F6F3, #B8E6E8);
+      }
+      .gradient-bg-results {
+        background: linear-gradient(135deg, #F8F6F3, #A8DADC);
+      }
+      .breathing-circle-exhale {
+        animation: exhale 0.6s cubic-bezier(0.4, 0.0, 0.2, 1) forwards;
+      }
+      .breathing-circle-inhale {
+        animation: inhale 0.6s cubic-bezier(0.4, 0.0, 0.2, 1) forwards;
+      }
+      @keyframes exhale {
+        from { transform: scale(1); }
+        to { transform: scale(0.5); }
+      }
+      @keyframes inhale {
+        from { transform: scale(0.5); }
+        to { transform: scale(1); }
+      }
+    </style>
+     <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Quiz",
+        "name": "Discover Your Inner Healer: Nervous System Regulation Assessment",
+        "description": "Science-based nervous system quiz using polyvagal theory, interoception research, and somatic experiencing principles",
+        "educationalLevel": "General audience",
+        "timeRequired": "PT3M"
+      }
+      </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script type="importmap">
+{
+  "imports": {
+    "react": "https://aistudiocdn.com/react@^19.2.0",
+    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.0/",
+    "react/": "https://aistudiocdn.com/react@^19.2.0/"
+  }
+}
+</script>
+<link rel="stylesheet" href="/index.css">
+</head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/index.tsx"></script>
+  </body>
+</html>

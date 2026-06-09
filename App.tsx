@@ -1,11 +1,11 @@
-
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import LandingPage from './components/LandingPage';
 import QuizPage from './components/QuizPage';
 import ResultsPage from './components/ResultsPage';
 import { calculateResults } from './services/quizService';
 import type { QuizProgress, QuizResults } from './types';
 import { questions } from './constants';
+import { useQuizProgress } from './hooks/useQuizProgress';
 
 type GameState = 'landing' | 'quiz' | 'results' | 'resume_prompt';
 
@@ -14,11 +14,21 @@ const App: React.FC = () => {
   const [answers, setAnswers] = useState<number[]>([]);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [results, setResults] = useState<QuizResults | null>(null);
+  const { savedProgress, saveProgress, clearProgress } = useQuizProgress();
+
+  // Check for saved progress on mount
+  useEffect(() => {
+    if (savedProgress && savedProgress.answers.length < questions.length) {
+      setAnswers(savedProgress.answers);
+      setCurrentQuestionIndex(savedProgress.currentQuestionIndex);
+      setGameState('resume_prompt');
+    }
+  }, [savedProgress]);
 
   const startQuiz = () => {
     setAnswers([]);
     setCurrentQuestionIndex(0);
-    localStorage.removeItem('nervousSystemQuiz_progress');
+    clearProgress();
     setGameState('quiz');
   };
 
@@ -29,13 +39,13 @@ const App: React.FC = () => {
   const handleAnswerSelect = (answerValue: number) => {
     const newAnswers = [...answers, answerValue];
     setAnswers(newAnswers);
-    
+
     const progress: QuizProgress = {
       currentQuestionIndex: currentQuestionIndex + 1,
       answers: newAnswers,
       timestamp: Date.now(),
     };
-    localStorage.setItem('nervousSystemQuiz_progress', JSON.stringify(progress));
+    saveProgress(progress);
 
     if (currentQuestionIndex < questions.length - 1) {
       setCurrentQuestionIndex(currentQuestionIndex + 1);
@@ -43,35 +53,10 @@ const App: React.FC = () => {
       const finalResults = calculateResults(newAnswers);
       setResults(finalResults);
       setGameState('results');
-      localStorage.removeItem('nervousSystemQuiz_progress');
+      clearProgress();
     }
   };
-  
-  const checkForSavedProgress = useCallback(() => {
-    const savedProgress = localStorage.getItem('nervousSystemQuiz_progress');
-    if (savedProgress) {
-      try {
-        const data: QuizProgress = JSON.parse(savedProgress);
-        const hoursSince = (Date.now() - data.timestamp) / 3600000;
-        if (hoursSince < 24 && data.answers.length > 0 && data.answers.length < questions.length) {
-          setAnswers(data.answers);
-          setCurrentQuestionIndex(data.currentQuestionIndex);
-          setGameState('resume_prompt');
-        } else {
-          localStorage.removeItem('nervousSystemQuiz_progress');
-        }
-      } catch (error) {
-        console.error("Failed to parse saved progress", error);
-        localStorage.removeItem('nervousSystemQuiz_progress');
-      }
-    }
-  }, []);
 
-  useEffect(() => {
-    checkForSavedProgress();
-     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-  
   const ResumePrompt = () => (
     <div className="gradient-bg w-full min-h-screen flex items-center justify-center p-6 text-text-dark font-sans">
       <div className="text-center bg-white/50 backdrop-blur-sm p-8 md:p-12 rounded-2xl shadow-soft max-w-md w-full">
@@ -102,7 +87,7 @@ const App: React.FC = () => {
       case 'resume_prompt':
         return <ResumePrompt />;
       case 'quiz':
-        return <QuizPage 
+        return <QuizPage
           currentQuestionIndex={currentQuestionIndex}
           onAnswerSelect={handleAnswerSelect}
         />;

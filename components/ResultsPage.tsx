@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import type { QuizResults } from "../types";
 
-const INTAKE_URL = "https://my.practicebetter.io/#/696cd5937957ff6cdd8359db/forms?f=696f8b2e626a21227f6fddfd";
+// The intake form is retired. Every path starts at the same door, booked directly.
+const BOOKING_URL = "https://l.bttr.to/o5F1I";
 const EMAIL_URL = "mailto:shannon@theintegrativepractitioner.com";
 const SUBSTACK_URL = "https://theintegrativepractitioner.substack.com/subscribe";
 const WEBSITE_URL = "https://theintegrativepractitioner.com";
@@ -35,7 +36,7 @@ const generatePDF = async (results: QuizResults) => {
   }
   const { jsPDF } = jspdf;
   const doc = new jsPDF({ orientation: "portrait", unit: "mm", format: "a4" });
-  doc.setFillColor(107, 158, 122);
+  doc.setFillColor(124, 42, 33);
   doc.rect(0, 0, 210, 35, "F");
   doc.setTextColor(255, 255, 255);
   doc.setFontSize(20);
@@ -55,12 +56,12 @@ const generatePDF = async (results: QuizResults) => {
   let yPos = 95;
   doc.setFillColor(250, 248, 243);
   doc.roundedRect(15, yPos, 180, 50, 3, 3, "F");
-  doc.setDrawColor(107, 158, 122);
+  doc.setDrawColor(124, 42, 33);
   doc.setLineWidth(0.5);
   doc.roundedRect(15, yPos, 180, 50, 3, 3, "S");
-  doc.setTextColor(107, 158, 122);
+  doc.setTextColor(124, 42, 33);
   doc.setFontSize(10);
-  doc.text("RECOMMENDED PATH", 105, yPos + 8, { align: "center" });
+  doc.text("RECOMMENDED FIRST STEP", 105, yPos + 8, { align: "center" });
   doc.setTextColor(40, 40, 40);
   doc.setFontSize(14);
   doc.text(results.recommendedPath.pathEmoji + " " + results.recommendedPath.pathTitle, 105, yPos + 18, { align: "center" });
@@ -69,15 +70,15 @@ const generatePDF = async (results: QuizResults) => {
   const splitRecDesc = doc.splitTextToSize(results.recommendedPath.description, 165);
   doc.text(splitRecDesc, 105, yPos + 27, { align: "center" });
   doc.setTextColor(0, 102, 204);
-  doc.textWithLink("View this path on the website", { url: results.recommendedPath.pathUrl, x: 105, y: yPos + 42 }, { align: "center" });
+  doc.textWithLink("See how the work is structured", { url: results.recommendedPath.pathUrl, x: 105, y: yPos + 42 }, { align: "center" });
   yPos = 155;
   doc.setTextColor(40, 40, 40);
   doc.setFontSize(11);
   doc.text("Next Steps", 20, yPos);
   doc.setFontSize(9);
-  doc.text("1. Apply to work together", 20, yPos + 10);
+  doc.text("1. Book The Clarity Call", 20, yPos + 10);
   doc.setTextColor(0, 102, 204);
-  doc.textWithLink("Start your intake form", { url: INTAKE_URL, x: 20, y: yPos + 17 });
+  doc.textWithLink("Book a time that works", { url: BOOKING_URL, x: 20, y: yPos + 17 });
   doc.setTextColor(40, 40, 40);
   doc.text("2. Have questions?", 20, yPos + 27);
   doc.setTextColor(0, 102, 204);
@@ -86,7 +87,7 @@ const generatePDF = async (results: QuizResults) => {
   doc.text("3. Get weekly insights", 20, yPos + 44);
   doc.setTextColor(0, 102, 204);
   doc.textWithLink("Subscribe to newsletter", { url: SUBSTACK_URL, x: 20, y: yPos + 51 });
-  doc.setFillColor(107, 158, 122);
+  doc.setFillColor(124, 42, 33);
   doc.rect(0, 280, 210, 17, "F");
   doc.setTextColor(255, 255, 255);
   doc.setFontSize(8);
@@ -130,11 +131,11 @@ const ResultsPage: React.FC<ResultsPageProps> = ({ results }) => {
                     <p className="text-base text-text-light mb-4 max-w-lg mx-auto">{recommendedPath.description}</p>
                     <p className="text-sm text-text-light/80 italic mb-5 border-l-4 border-sage pl-4 text-left max-w-lg mx-auto">{recommendedPath.whyThisPath}</p>
                     <a href={recommendedPath.pathUrl} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 bg-sage hover:bg-sage-dark text-white py-3 px-6 rounded-full font-semibold transition-all">
-                        <LinkIcon />View This Path on the Website
+                        <LinkIcon />See How the Work Is Structured
                     </a>
                 </div>
                 <div className="space-y-4 mb-8 max-w-md mx-auto">
-                    <a href={INTAKE_URL} target="_blank" rel="noopener noreferrer" className="block w-full bg-sage hover:bg-sage-dark text-white py-4 px-6 rounded-xl font-semibold text-center shadow-soft transition-all">Apply to Work Together</a>
+                    <a href={BOOKING_URL} target="_blank" rel="noopener noreferrer" className="block w-full bg-sage hover:bg-sage-dark text-white py-4 px-6 rounded-xl font-semibold text-center shadow-soft transition-all">Book The Clarity Call</a>
                     <a href={EMAIL_URL} className="block w-full bg-white text-terracotta border-2 border-terracotta py-4 px-6 rounded-xl font-semibold text-center shadow-soft transition-all flex items-center justify-center gap-2">
                         <EmailIcon />Have Questions? Email Shannon
                     </a>

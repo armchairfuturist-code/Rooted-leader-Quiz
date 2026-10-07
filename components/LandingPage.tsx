@@ -57,17 +57,17 @@ const LandingPage: React.FC<LandingPageProps> = ({ onStart }) => {
         <h1 className="text-3xl md:text-4xl font-medium leading-tight mb-4 tracking-wide">
           Discover Your Inner Healer:
           <br />
-          A Nervous System Journey
+          A Nervous System Assessment
         </h1>
         <p className="text-lg md:text-xl text-text-light max-w-md mb-10" style={{ lineHeight: 1.7 }}>
-          Your nervous system holds the key to your deepest healing. This 3-minute journey reveals patterns you may not consciously recognize.
+          Your nervous system holds the key to your deepest healing. This 3-minute assessment reveals patterns you may not consciously recognize.
         </p>
         <button
           onClick={onStart}
-          aria-label="Begin Your Journey"
+          aria-label="Begin the Assessment"
           className="bg-accent text-white py-4 px-12 rounded-full text-lg font-medium shadow-soft hover:shadow-soft-hover hover:-translate-y-1 transition-all duration-300"
         >
-          Begin Your Journey
+          Begin the Assessment
         </button>
         <p className="mt-6 text-sm text-text-light">
           22 questions - ~3 minutes - Based on latest nervous system science

@@ -61,13 +61,13 @@ const App: React.FC = () => {
     <div className="gradient-bg w-full min-h-screen flex items-center justify-center p-6 text-text-dark font-sans">
       <div className="text-center bg-white/50 backdrop-blur-sm p-8 md:p-12 rounded-2xl shadow-soft max-w-md w-full">
         <h2 className="text-2xl md:text-3xl font-medium mb-4">Welcome back.</h2>
-        <p className="text-lg text-text-light mb-8">Would you like to continue your journey from where you left off?</p>
+        <p className="text-lg text-text-light mb-8">Would you like to continue the assessment from where you left off?</p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <button
             onClick={resumeQuiz}
             className="w-full sm:w-auto bg-accent text-white py-3 px-10 rounded-full text-lg font-medium shadow-soft hover:shadow-soft-hover hover:-translate-y-0.5 transition-all duration-300"
           >
-            Continue Journey
+            Continue the Assessment
           </button>
           <button
             onClick={startQuiz}
